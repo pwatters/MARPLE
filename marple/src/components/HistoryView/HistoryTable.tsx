@@ -55,7 +55,7 @@ const HistoryTable = ({ history }: HistoryTableProps) => {
     );
   }
 
-  function rowContent(index: number, row: AnalysisMetadata) {
+  function rowContent(_index: number, row: AnalysisMetadata) {
     return columns.map((column) => (
       <TableCell
         key={column.dataKey}

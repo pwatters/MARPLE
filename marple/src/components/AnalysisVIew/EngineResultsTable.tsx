@@ -48,7 +48,7 @@ const EngineResultsTable = ({ engineResultsList }: EngineResultsTableProps) => {
     );
   }
 
-  function rowContent(index: number, row: EngineResults) {
+  function rowContent(_index: number, row: EngineResults) {
     return columns.map((column) => (
       <TableCell key={column.dataKey}>{row[column.dataKey]}</TableCell>
     ));
