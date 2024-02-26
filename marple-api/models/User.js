@@ -1,22 +1,19 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../dbconfig");
 
-const AnalysisMetadata = sequelize.define(
-  "AnalysisMetadata",
+const User = sequelize.define(
+  "User",
   {
-    analysisId: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
-    date: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
-    status: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url: {
+    passwordHash: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -26,4 +23,4 @@ const AnalysisMetadata = sequelize.define(
   }
 );
 
-module.exports = AnalysisMetadata;
+module.exports = User;

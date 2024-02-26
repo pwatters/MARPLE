@@ -4,39 +4,38 @@ const sequelize = require("../dbconfig");
 const EngineResults = sequelize.define(
   "EngineResults",
   {
-    ResultId: {
+    resultId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    AnalysisId: {
+    analysisId: {
       type: DataTypes.STRING,
       references: {
         model: "AnalysisMetadata",
-        key: "AnalysisId",
+        key: "analysisId",
       },
       allowNull: false,
     },
-    EngineName: {
+    engineName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Method: {
+    method: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Category: {
+    category: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Result: {
+    result: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     timestamps: false,
-    tableName: "EngineResults",
   }
 );
 

@@ -30,7 +30,6 @@ const scanUrl = async (url) => {
     )?.data.data;
 
     if (isFailedScan(scanResult)) {
-      console.log("Scan is queued");
       throw new Error("Scan is queued");
     }
 
@@ -39,21 +38,21 @@ const scanUrl = async (url) => {
     if (!exists) {
       // Insert analysis metadata along with the URL
       await AnalysisMetadata.create({
-        AnalysisId: scanResult.id,
-        Date: scanResult.attributes.date,
-        Status: scanResult.attributes.status,
-        Url: url,
+        analysisId: scanResult.id,
+        date: scanResult.attributes.date,
+        status: scanResult.attributes.status,
+        url: url,
       });
 
       // Insert analysis statistics
       const stats = scanResult.attributes.stats;
       await AnalysisStatistics.create({
-        AnalysisId: scanResult.id,
-        Malicious: stats.malicious,
-        Suspicious: stats.suspicious,
-        Undetected: stats.undetected,
-        Harmless: stats.harmless,
-        Timeout: stats.timeout,
+        analysisId: scanResult.id,
+        malicious: stats.malicious,
+        suspicious: stats.suspicious,
+        undetected: stats.undetected,
+        harmless: stats.harmless,
+        timeout: stats.timeout,
       });
 
       // Insert engine results
@@ -61,17 +60,18 @@ const scanUrl = async (url) => {
         scanResult.attributes.results
       )) {
         await EngineResults.create({
-          AnalysisId: scanResult.id,
-          EngineName: engineName,
-          Method: engineResult.method,
-          Category: engineResult.category,
-          Result: engineResult.result,
+          analysisId: scanResult.id,
+          engineName: engineName,
+          method: engineResult.method,
+          category: engineResult.category,
+          result: engineResult.result,
         });
       }
     }
 
     return { success: true, url, scanResult };
   } catch (err) {
+    console.log(`Failed to scan url. ${err}`);
     return { success: false, url };
   }
 };

@@ -4,40 +4,40 @@ const sequelize = require("../dbconfig");
 const AnalysisStatistics = sequelize.define(
   "AnalysisStatistics",
   {
-    StatisticsId: {
+    statisticsId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    AnalysisId: {
+    analysisId: {
       type: DataTypes.STRING,
       references: {
         model: "AnalysisMetadata",
-        key: "AnalysisId",
+        key: "analysisId",
       },
       allowNull: false,
     },
-    Malicious: {
+    malicious: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    Suspicious: {
+    suspicious: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    Undetected: {
+    undetected: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    Harmless: {
+    harmless: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    Timeout: {
+    timeout: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
@@ -45,7 +45,6 @@ const AnalysisStatistics = sequelize.define(
   },
   {
     timestamps: false,
-    tableName: "AnalysisStatistics",
   }
 );
 
