@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
@@ -15,7 +16,7 @@ import { AnalysisMetadata } from "../../containers/HistoryPage/types";
 import { useNavigate } from "react-router-dom";
 import AppRoute from "../../router/routes";
 
-const HistoryTable = ({ history }: HistoryTableProps) => {
+const HistoryTable = ({ history, isHistoryLoading }: HistoryTableProps) => {
   const navigate = useNavigate();
 
   const columns: HistoryTableColumn[] = [
@@ -42,16 +43,25 @@ const HistoryTable = ({ history }: HistoryTableProps) => {
 
   function fixedHeaderContent() {
     return (
-      <TableRow>
-        {columns.map((column) => (
-          <TableCell
-            key={column.dataKey}
-            sx={{ fontWeight: "bold", backgroundColor: "background.paper" }}
-          >
-            {column.label}
-          </TableCell>
-        ))}
-      </TableRow>
+      <>
+        <TableRow>
+          {columns.map((column) => (
+            <TableCell
+              key={column.dataKey}
+              sx={{ fontWeight: "bold", backgroundColor: "background.paper" }}
+            >
+              {column.label}
+            </TableCell>
+          ))}
+        </TableRow>
+        {isHistoryLoading ? (
+          <TableRow>
+            <TableCell colSpan={columns.length} sx={{ padding: 0 }}>
+              <LinearProgress />
+            </TableCell>
+          </TableRow>
+        ) : null}
+      </>
     );
   }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
@@ -7,12 +8,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Theme,
 } from "@mui/material";
 import { TableComponents, TableVirtuoso } from "react-virtuoso";
 import { EngineResultsTableColumn, EngineResultsTableProps } from "./types";
 import { EngineResults } from "../../containers/AnalysisPage/types";
 
-const EngineResultsTable = ({ engineResultsList }: EngineResultsTableProps) => {
+const EngineResultsTable = ({
+  engineResultsList,
+  areEngineResultsLoading,
+}: EngineResultsTableProps) => {
   const columns: EngineResultsTableColumn[] = [
     { label: "Engine Name", dataKey: "engineName" },
     { label: "Method", dataKey: "method" },
@@ -35,22 +40,48 @@ const EngineResultsTable = ({ engineResultsList }: EngineResultsTableProps) => {
 
   function fixedHeaderContent() {
     return (
-      <TableRow>
-        {columns.map((column) => (
-          <TableCell
-            key={column.dataKey}
-            sx={{ fontWeight: "bold", backgroundColor: "background.paper" }}
-          >
-            {column.label}
-          </TableCell>
-        ))}
-      </TableRow>
+      <>
+        <TableRow>
+          {columns.map((column) => (
+            <TableCell
+              key={column.dataKey}
+              sx={{ fontWeight: "bold", backgroundColor: "background.paper" }}
+            >
+              {column.label}
+            </TableCell>
+          ))}
+        </TableRow>
+        {areEngineResultsLoading ? (
+          <TableRow>
+            <TableCell colSpan={columns.length} sx={{ padding: 0 }}>
+              <LinearProgress />
+            </TableCell>
+          </TableRow>
+        ) : null}
+      </>
     );
+  }
+
+  function getRowColor(category: string) {
+    if (category === "malicious") {
+      return (theme: Theme) => theme.palette.error.main;
+    } else if (category === "suspicious") {
+      return (theme: Theme) => theme.palette.warning.main;
+    } else if (category === "harmless") {
+      return (theme: Theme) => theme.palette.success.main;
+    } else {
+      return "inherit";
+    }
   }
 
   function rowContent(_index: number, row: EngineResults) {
     return columns.map((column) => (
-      <TableCell key={column.dataKey}>{row[column.dataKey]}</TableCell>
+      <TableCell
+        key={column.dataKey}
+        sx={{ color: getRowColor(row[column.dataKey]) }}
+      >
+        {row[column.dataKey]}
+      </TableCell>
     ));
   }
 
