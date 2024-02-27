@@ -6,7 +6,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
-    "sequelize": "^6.36.0",
-    "tedious": "^16.7.0"
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.2.0"
   }
 }

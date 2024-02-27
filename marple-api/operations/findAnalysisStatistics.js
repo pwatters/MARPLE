@@ -1,6 +1,6 @@
 const AnalysisStatistics = require("../models/AnalysisStatistics");
 
 const findAnalysisStatistics = async (analysisId) =>
-  AnalysisStatistics.findOne({ where: { analysisId } });
+  AnalysisStatistics.findOne({ analysisId });
 
 module.exports = findAnalysisStatistics;

@@ -1,42 +1,34 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../dbconfig");
+const mongoose = require("mongoose");
 
-const EngineResults = sequelize.define(
-  "EngineResults",
+const engineResultsSchema = new mongoose.Schema(
   {
-    resultId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     analysisId: {
-      type: DataTypes.STRING,
-      references: {
-        model: "AnalysisMetadata",
-        key: "analysisId",
-      },
-      allowNull: false,
+      type: String,
+      required: true,
     },
     engineName: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     method: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     category: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     result: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
   },
   {
     timestamps: false,
+    versionKey: false,
   }
 );
+
+const EngineResults = mongoose.model("EngineResults", engineResultsSchema);
 
 module.exports = EngineResults;

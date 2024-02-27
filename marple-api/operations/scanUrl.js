@@ -80,7 +80,7 @@ const isFailedScan = (scanResult) =>
   !Object.values(scanResult.attributes.stats).some((value) => value > 0);
 
 const checkAnalysisIdExists = async (analysisId) => {
-  const analysis = await AnalysisMetadata.findByPk(analysisId);
+  const analysis = await AnalysisMetadata.findOne({ analysisId });
   return analysis != null;
 };
 

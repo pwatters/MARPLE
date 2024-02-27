@@ -1,51 +1,46 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../dbconfig");
+const mongoose = require("mongoose");
 
-const AnalysisStatistics = sequelize.define(
-  "AnalysisStatistics",
+const analysisStatisticsSchema = new mongoose.Schema(
   {
-    statisticsId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     analysisId: {
-      type: DataTypes.STRING,
-      references: {
-        model: "AnalysisMetadata",
-        key: "analysisId",
-      },
-      allowNull: false,
+      type: String,
+      required: true,
     },
     malicious: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
     suspicious: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
     undetected: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
     harmless: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
     timeout: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
   {
     timestamps: false,
+    versionKey: false,
   }
+);
+
+const AnalysisStatistics = mongoose.model(
+  "AnalysisStatistics",
+  analysisStatisticsSchema
 );
 
 module.exports = AnalysisStatistics;

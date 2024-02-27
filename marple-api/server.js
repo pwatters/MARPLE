@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 // const scanSite = require("./operations/scanSite");
 const scanUrl = require("./operations/scanUrl");
 const scanDomain = require("./operations/scanDomain");
@@ -11,28 +12,9 @@ const findEngineResults = require("./operations/findEngineResults");
 const validateUrl = require("./validators/validateUrl");
 const validateDomain = require("./validators/validateDomain");
 const { errorMessages } = require("./constants/errorMessages");
-const sequelize = require("./dbconfig");
-const insertUser = require("./insertUser");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-sequelize
-  .sync()
-  .then(async () => {
-    console.log("Models synced with the database.");
-    const exists = await login({
-      username: process.env.USERNAME,
-      password: process.env.PASSWORD,
-    });
-
-    if (!exists) {
-      await insertUser();
-    }
-  })
-  .catch((err) => {
-    console.error("Failed to sync models with the database:", err);
-  });
 
 app.use(express.json());
 app.use(cors());
@@ -150,6 +132,8 @@ app.get("/api/engineResults/:analysisId", async (req, res) => {
     return res.status(500).send(errorMessages.generalError);
   }
 });
+
+mongoose.connect(process.env.DB_URL);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

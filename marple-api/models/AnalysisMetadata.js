@@ -1,29 +1,34 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../dbconfig");
+const mongoose = require("mongoose");
 
-const AnalysisMetadata = sequelize.define(
-  "AnalysisMetadata",
+const analysisMetadataSchema = new mongoose.Schema(
   {
     analysisId: {
-      type: DataTypes.STRING,
-      primaryKey: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     date: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
+      type: Number,
+      required: true,
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     url: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
   },
   {
     timestamps: false,
+    versionKey: false,
   }
+);
+
+const AnalysisMetadata = mongoose.model(
+  "AnalysisMetadata",
+  analysisMetadataSchema
 );
 
 module.exports = AnalysisMetadata;
