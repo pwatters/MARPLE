@@ -15,7 +15,13 @@ const AnalysisView = ({
       <Typography variant="h2" textAlign="center" mb={3}>
         Detailed Analysis
       </Typography>
-      <Typography variant="h3" textAlign="center" mb={3}>
+      <Typography
+        variant="h3"
+        textAlign="center"
+        mb={3}
+        overflow="hidden"
+        textOverflow="ellipsis"
+      >
         {url}
       </Typography>
       <Grid container spacing={2}>
