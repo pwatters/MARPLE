@@ -70,7 +70,11 @@ const HistoryTable = ({ history, isHistoryLoading }: HistoryTableProps) => {
       <TableCell
         key={column.dataKey}
         onClick={handleRowClick(row.analysisId, row.url)}
-        sx={{ cursor: "pointer" }}
+        sx={{
+          cursor: "pointer",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
       >
         {column.dataKey === "date"
           ? convertEpochToDate(row[column.dataKey])
